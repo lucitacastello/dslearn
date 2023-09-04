@@ -2,6 +2,8 @@ package com.acrdev.dslearn.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +16,14 @@ public class Course {
     private String name;
     private String imgUri;
     private String imgGrayUri;
+
+    //Associação Um para Muitos
+    // 1 curso pode ter várias ofertas
+    // 1 oferta possui um curso
+    // implementar o Muito para Um na entidade Curso
+
+    @OneToMany(mappedBy = "course") //PK em Offer
+    private List<Offer> offers = new ArrayList<>(); //add getter
 
     public Course() {
     }
@@ -55,6 +65,10 @@ public class Course {
 
     public void setImgGrayUri(String imgGrayUri) {
         this.imgGrayUri = imgGrayUri;
+    }
+
+    public List<Offer> getOffers() {
+        return offers;
     }
 
     @Override
